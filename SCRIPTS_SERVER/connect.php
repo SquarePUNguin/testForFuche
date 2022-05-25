@@ -9,12 +9,12 @@ $pswd='123';
 $dbh = new mysqli($host, $user, $pswd,$database) or die("Не могу соединиться с MySQL.");
 return $dbh;
 }
-function HASHIT($pass)//а это wrapper для password_hash() 
+function HASHIT($pass,$hash)//а это wrapper для password_hash() и password_verify();
 {
-    return password_hash($pass,PASSWORD_DEFAULT);
-}
-function HASHIT($pass,$hash)//ещё однин wrapper но для password_verify();
-{
-    return password_verify($pass,$hash);
+    if($hash == undefined){
+        return password_verify($pass,$hash);
+    }
+    else{
+    return password_hash($pass,PASSWORD_DEFAULT);}
 }
 ?>

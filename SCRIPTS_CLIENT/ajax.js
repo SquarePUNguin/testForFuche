@@ -19,39 +19,33 @@ class AJAXpigeon {
         }
         return Request;
     }
-    constructor(victim, name, destination) {
-        var itdata = victim;
-        rec = AJAXpigeon.#CreateRequest();
-        rec.open("POST", destination);
-        rec.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        itdata = encodeURIComponent(itdata);
-        rec.responseType = "text";
-        rec.send("input_" + name + "=" + itdata);
-        DATA=rec;
+    constructor(a, b, c) {
+        if (a != undefined || b != undefined || c != undefined) {
+            this.massage = a;
+            this.title = b;
+            this.destination = c;
+            this.fly = this.Newdestination(this.massage, this.title, this.destination);
+        }else{}
     }
     Newdestination(victim, name, destination) {
-        var itdata = victim;
+        data = victim;
         rec = AJAXpigeon.#CreateRequest();
         rec.open("POST", destination);
         rec.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        itdata = encodeURIComponent(itdata);
+        data = encodeURIComponent(data);
         rec.responseType = "text";
-        rec.send("input_" + name + "=" + itdata);
-        DATA=rec;
+        rec.send("input_" + name + "=" + data);
+        return rec;
     }
-    RETURN(func)
-    {
-        DATA.onreadystatechange = function()
-        {
-            if(DATA.readyState ==4 && DATA.status ==200)
-            {
-                DATA= DATA.responseText;
+    RETURN(func) {
+        this.fly.onreadystatechange = function () {
+            if (this.fly.readyState == 4 && this.fly.status == 200) {
+                this.fly = this.fly.responseText;
                 func();
             }
         }
     }
-    GetDATA()
-    {
-        return DATA;
+    Getthisfly() {
+        return this.fly;
     }
 }
