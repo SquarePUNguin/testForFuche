@@ -1,6 +1,6 @@
 <?php
 session_start();
-function connect()//данная функци создана для установки соединения с сервером 
+function connect()//данная функция создана для установки соединения с сервером 
 {
 $host='localhost'; 
 $database='enter_test';
