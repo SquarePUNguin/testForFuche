@@ -13,13 +13,13 @@ if(isset($_POST["input_id"]))
     echo $res;
 }
 if(isset($_POST["input_all"])){
-    $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book");
+    $res=$dbh->prepare("SELECT id,FNP,COMP,PHONE,Email,BirthDay,img FROM book");
     $res->execute();
     $res=$res->get_result();
     for($i=0;$i<=$res->num_rows-1;$i++)
     {
         $value=$res->fetch_assoc();
-        $result[$i]="<div class='phone'><div><div></div><div class='phoneIMG' style='background-image:url(".strval($value["img"]).")'></div><div></div></div><div>";
+        $result[$i]="<div id=".$value["id"]." class='phone'><div><div></div><div class='phoneIMG' style='background-image:url(".strval($value["img"]).")'></div><div></div></div><div>";
         if(!empty($value["img"])){
         }
         if(!empty($value["FNP"])){
