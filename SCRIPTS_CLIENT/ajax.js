@@ -1,6 +1,6 @@
 
 class AJAXpigeon {
-    static #CreateRequest() {//создаёт объект типа XMLHttpRequest дя AJAX запроса
+    static #CreateRequest() {//создаёт объект типа XMLHttpRequest для AJAX запроса
         var Request = false;
         Request = new XMLHttpRequest();
         if (window.XMLHttpRequest) {
@@ -19,33 +19,42 @@ class AJAXpigeon {
         }
         return Request;
     }
-    constructor(a, b, c) {
+    constructor(a, b, c, type) {
         if (a != undefined || b != undefined || c != undefined) {
             this.massage = a;
             this.title = b;
             this.destination = c;
-            this.fly = this.Newdestination(this.massage, this.title, this.destination);
-        }else{}
+            this.fly = this.Newdestination(this.massage, this.title, this.destination, type);
+        } else { }
     }
-    Newdestination(victim, name, destination) {
-        data = victim;
-        rec = AJAXpigeon.#CreateRequest();
-        rec.open("POST", destination);
-        rec.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        data = encodeURIComponent(data);
-        rec.responseType = "text";
-        rec.send("input_" + name + "=" + data);
-        return rec;
+    Newdestination(victim, name, destination, type) {
+        if (victim != undefined) { this.massage = victim; }
+        if (name != undefined) { this.title = name; }
+        if (destination != undefined) { this.destination = destination; }
+        this.fly = AJAXpigeon.#CreateRequest();
+        this.fly.open(type, this.destination);
+        this.fly.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        this.massage = encodeURIComponent(this.massage);
+        this.fly.responseType = "text";
+        this.fly.send("input_" + this.title + "=" + this.massage);
+        return this.fly;
     }
-    RETURN(func) {
-        this.fly.onreadystatechange = function () {
-            if (this.fly.readyState == 4 && this.fly.status == 200) {
-                this.fly = this.fly.responseText;
-                func();
+    ANSWARE(func) {
+        let res = this.fly
+        res.onreadystatechange = function () {
+            if (res.readyState == 4 && res.status == 200) {
+                if (typeof func === 'function') {
+                    res = res.responseText;
+                    func(res);
+                } else {
+                    res = res.responseText;
+                    return res.responseText;
+                }
             }
+
         }
     }
-    Getthisfly() {
+    GetFLY() {
         return this.fly;
     }
 }

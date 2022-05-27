@@ -3,9 +3,9 @@ session_start();
 function connect()//данная функция создана для установки соединения с сервером 
 {
 $host='localhost';
-$database='TEST';
-$user='test';
-$pswd='123'; 
+$database='enter_test_fuche';
+$user='root';
+$pswd=''; 
 $dbh = new mysqli($host, $user, $pswd,$database) or die("Не могу соединиться с MySQL.");
 return $dbh;
 }

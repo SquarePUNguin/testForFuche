@@ -1,12 +1,23 @@
 :root
 {
     --color1:navajowhite;
-    --bgcolor:azure
+    --color2:blanchedalmond;
+    --bgcolor:azure;
+    
+
+}
+*{margin:0px;padding:0px;}
+body,html{
+    width:100%;
+    height:100%;
 }
 body
 {
-    grid-template-rows: 4fr 10fr;
-    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30% 70%;
+    background-color: var(--bgcolor);
+    box-shadow: 0px 0px 100px 15px rgba(0, 0, 0, 0.55) inset;
 }
 /*HEADER */
 header
@@ -14,8 +25,9 @@ header
     --borderRadius:50%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows:70% 30%;
+    grid-template-rows:60% 30%;
     border:20px var(--color1) double;
+    box-shadow: 10px black;
     border-top-left-radius: var(--borderRadius);
     border-top-right-radius: var(--borderRadius);
     background-color:var(--bgcolor);
@@ -23,68 +35,133 @@ header
 header>div:nth-child(2)
 {
     display: grid;
-    grid-template-columns: repeat(2,50%);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
-    gap:1%;
 }
-/*headers buttons*/
-header>div:nth-child(2)>button
+header>div:nth-child(2)>div:nth-child(2)
+{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap:4%;
+}
+/*buttons*/
+button
 {
     --buttonDebth:5px;
-    --MARbuttons:72%;
-    --ButtonBRcolor:navy;
-    --Buttontext:firebrick;
-    border:5px double var(--Buttontext);
-    color:var(--ButtonBRcolor);
+    --MARbuttons:67%;
+    --ButtonText:navy;
+    --ButtonBRcolor:firebrick;
+    --DisabledButtBRcolor:rgb(129, 90, 90);
+    --DISabledButtText:rgb(77, 77, 104);
+    border:5px double var(--ButtonBRcolor);
+    color:var(--ButtonText);
     border-radius: 30%;
     background-color: transparent;
     box-shadow:0 var(--buttonDebth) rgba(99, 99, 99, 0.623);
     margin-bottom: var(--buttonDebth);
 }
-header>div:nth-child(2)>button:hover
+button:hover
 {
     font-weight: bolder;
     background-color: transparent;
+    border-width: 7px;
     box-shadow:0 var(--buttonDebth) rgba(46, 46, 46, 0.781);
 }
-header>div:nth-child(2)>button:active
+button:active
 {
-    border:5px double var(--Buttontext);
+    border:5px double var(--ButtonBRcolor);
     margin-bottom:0px;
     margin-top:var(--buttonDebth);
     box-shadow:none;
     
 }
-header>div:nth-child(2)>button:nth-child(1){margin-left:var(--MARbuttons);}
-header>div:nth-child(2)>button:nth-child(2){margin-right:var(--MARbuttons);}
+button:disabled
+{
+    border:7px double var(--DisabledButtBRcolor)!important;
+    color:var(--DISabledButtText)!important;
+    background-color:rgb(186, 195, 195)!important;
+    font-weight: bolder;
+    margin-bottom:0px;
+    margin-top:var(--buttonDebth);
+    box-shadow:none;
+}
 /*main*/
 main
 {
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
     background-color: var(--color1);
     border-left:5px dotted var(--bgcolor);
     border-right:5px dotted var(--bgcolor);
     border-top:none;
     border-bottom: none;
-    
-}
-main>div
-{
-    width:100%;
-    height:100%;
-    display:grid;
-    grid-template-rows: repeat(6,1fr);
-    grid-template-columns: repeat(1,1fr);
 }
 /*dialogs of main*/
-main>dialog
+main>.dropmenu
 {
-    width:100%;
-    height:100%;
-}
-/*footer*/
-footer
-{
-    background-color: var(--bgcolor);
-    border:10px var(--color1) solid;
     
+    position:static;
+    background:var(--bgcolor);
+    border:6px solid transparent;
+    border-top:none;
+}
+.dropmenu
+{
+    display:none;
+}
+main>.dropmenu
+{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5fr;
+}
+main>.dropmenu>div:nth-child(2)
+{
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+main>.dropmenu>div:nth-child(2)
+{
+    border-bottom:5px solid var(--color1);
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius:100%;
+    background-color: var(--color1);
+    box-shadow: 0px 11px 22px -5px rgba(34, 60, 80, 0.5);
+    z-index: 1;
+}
+main>.dropmenu>div:nth-child(2)>button
+{
+    width:10%;
+    margin-left:auto;
+    margin-right:auto;
+    grid-area:3;
+    color:var(--ButtonText);
+    background-color: var(--color2);
+}
+/*dynamiccontent*/
+.returnPHONES
+{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows:repeat(auto-fill,100%);
+}
+.phone
+{
+    text-align:center;
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 5fr;
+}
+.phone>div:nth-child(1)
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+.phoneIMG{
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
