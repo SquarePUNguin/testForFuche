@@ -19,13 +19,17 @@ function HASHIT($pass,$hash)//а это wrapper для password_hash() и passwo
 }
 function imageUPLOAD($data,$dest="API/notebook/PB_img",$id)
 {
-    $tmp_name=$data["tmp_name"][0];
-    $name=$id.".".pathinfo($data["name"][0],PATHINFO_EXTENSION);
-    if(move_uploaded_file($tmp_name,"$dest/$name"))
-    {
-        return "$dest/$name";
+    if($data["error"]!=0){
+        return $data["error"];
     }else{
-        return NULL;
+        $tmp_name=$data["tmp_name"][0];
+        $name=$id.".".pathinfo($data["name"][0],PATHINFO_EXTENSION);
+        if(move_uploaded_file($tmp_name,"$dest/$name"))
+        {
+            return "$dest/$name";
+        }else{
+            return NULL;
+        }
     }
 }
 ?>

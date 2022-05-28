@@ -24,7 +24,7 @@ class AJAXpigeon {
             this.massage = a;
             this.title = b;
             this.destination = c;
-            this.fly = this.Newdestination(this.massage, this.title, this.destination, type);
+            this.fly = this.Newdestination(this.massage, this.title, this.destination);
         } else { }
     }
     Newdestination(victim, name, destination, type) {
@@ -32,7 +32,7 @@ class AJAXpigeon {
         if (name != undefined) { this.title = name; }
         if (destination != undefined) { this.destination = destination; }
         this.fly = AJAXpigeon.#CreateRequest();
-        this.fly.open(type, this.destination);
+        this.fly.open("POST", this.destination);
         this.fly.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         this.massage = encodeURIComponent(this.massage);
         this.fly.responseType = "text";

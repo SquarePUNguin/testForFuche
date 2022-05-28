@@ -1,0 +1,78 @@
+body
+{
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+body>header{
+    display:grid;
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: 1fr;
+}
+body>header>img/*left*/
+{
+    background-size:auto;
+    background-repeat: no-repeat;
+    background-position: top;
+    border:5px double var(--ButtonBRcolor);
+    background-color: var(--color1);
+}
+body>header>div:nth-child(2)/*right*/
+{
+    color:var(--ButtonBRcolor);
+    font-size: x-large;
+    border-right:10px double var(--ButtonBRcolor);
+    border-bottom:5px double var(--ButtonBRcolor);
+    border-top:5px double var(--ButtonBRcolor);
+    background-color: var(--color1);
+}
+body>header>div:nth-child(2)>p
+{
+    margin-left:10px;
+    text-align: left;
+}
+footer
+{
+    border-left:5px double var(--ButtonBRcolor);
+    border-right:5px double var(--ButtonBRcolor);
+    background-color: var(--bgcolor);
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 5% 20% 75%;
+}
+/*buttons*/
+button
+{
+    --buttonDebth:10px;
+    grid-area: 2/2;
+    border:5px double var(--ButtonBRcolor);
+    color:var(--ButtonText);
+    border-radius: 30%;
+    background-color: transparent;
+    box-shadow:0 var(--buttonDebth) rgba(99, 99, 99, 0.623);
+    margin-bottom: var(--buttonDebth);
+}
+button:hover
+{
+    font-weight: bolder;
+    background-color: transparent;
+    border-width: 7px;
+    box-shadow:0 var(--buttonDebth) rgba(46, 46, 46, 0.781);
+}
+button:active
+{
+    border:5px double var(--ButtonBRcolor);
+    margin-bottom:0px;
+    margin-top:var(--buttonDebth);
+    box-shadow:none;
+}
+button:disabled
+{
+    border:7px double var(--DisabledButtBRcolor)!important;
+    color:var(--DISabledButtText)!important;
+    background-color:rgb(186, 195, 195)!important;
+    font-weight: bolder;
+    margin-bottom:0px;
+    margin-top:var(--buttonDebth);
+    box-shadow:none;
+}
