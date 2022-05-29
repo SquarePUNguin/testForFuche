@@ -4,13 +4,13 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'\API\connect.php';
 $dbh=connect();
-$id=($_GET["id"]);
+$id=($_GET["id"]);//запоминаем id данного контакта
 $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=?");
     $res->bind_param("s",$id);
-    $res->execute();
+    $res->execute();//запрос данных контакта
     $res=$res->get_result();
     $res=$res->fetch_assoc();
-    $res["id"]=$id;
+    $res["id"]=$id;//добовляем к тем-же данныи и id
 ?>
 
 <head>
@@ -19,7 +19,7 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
     <link href="/STYLES/all.css" rel="stylesheet">
     <link href="/STYLES/mono.CSS" rel="stylesheet">
     <title>
-        <? echo $res["FNP"]; ?>
+        <? echo $res["FNP"];//выводим название контакта в название страницы ?>
     </title>
 </head>
 
@@ -27,7 +27,7 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
     <header>
         <img src='<? echo'/'.$res["img"]?>' alt='user image'></img>
         <div class="main" id="<? echo $id ?>">
-            <? 
+            <?//выводим данные контакта 
                 if(!empty($res["FNP"])){echo "<p>".$res["FNP"]."</p>";}
                 if(!empty($res["PHONE"])){echo "<p>".$res["PHONE"]."</p>";}
                 if(!empty($res["COMP"])){echo "<p>".$res["COMP"]."</p>";}
@@ -43,7 +43,7 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
     </footer>
     <script src="/SCRIPTS_CLIENT/ajax.js"></script>
     <script>
-        $("footer button.edit").click(function(){
+        $("footer button.edit").click(function(){//вызывается когда пользователь нажимает кнопку редактирования контакта
             var value =JSON.parse($('footer>p').text());
             $("header>div").empty();
             let PHolder=`<form class="redact" name='redact' enctype="multipart/form-data">
@@ -58,7 +58,7 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
             </form>`;
             $("header>div").append(PHolder);
         })
-        $("footer button.delete").click(function(){
+        $("footer button.delete").click(function(){//удаляет контакт
             data=$(".main").attr("ID");
             console.log(data);
             $.ajax({
@@ -73,10 +73,10 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
                 }
             })
         })
-        $("header>div").on("submit",".redact",function(){
-            var data = new FormData($("form.redact")[0]);
-            data.append("id",$("header>div").attr("id")+"");
-            $.ajax({
+        $("header>div").on("submit",".redact",function(){//вызывается с отправкой формы
+            var data = new FormData($("form.redact")[0]);//собираем данные из формы
+            data.append("id",$("header>div").attr("id")+"");//добавляем id в форму
+            $.ajax({//запрос на редактирование
                 url:"/API/notebook/manipulator.php",
                 type: 'POST',
                 processData: false,
@@ -84,10 +84,10 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
                 dataType : 'json',
                 data:data,
                 complete:function(){
-                    location.href="/";
+                    location.href="/";//уводим пользователя обратно на главную
                 }
             })
-            return false;
+            return false
         })
     </script>
     

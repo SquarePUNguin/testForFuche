@@ -19,7 +19,7 @@ class AJAXpigeon {
         }
         return Request;
     }
-    constructor(a, b, c, type) {
+    constructor(a, b, c, type) {//конструктор 
         if (a != undefined || b != undefined || c != undefined) {
             this.massage = a;
             this.title = b;
@@ -27,7 +27,7 @@ class AJAXpigeon {
             this.fly = this.Newdestination(this.massage, this.title, this.destination);
         } else { }
     }
-    Newdestination(victim, name, destination, type) {
+    Newdestination(victim, name, destination, type) {//производит запрос
         if (victim != undefined) { this.massage = victim; }
         if (name != undefined) { this.title = name; }
         if (destination != undefined) { this.destination = destination; }
@@ -39,7 +39,7 @@ class AJAXpigeon {
         this.fly.send("input_" + this.title + "=" + this.massage);
         return this.fly;
     }
-    ANSWARE(func) {
+    ANSWARE(func) {//обработчик ответа
         let res = this.fly
         res.onreadystatechange = function () {
             if (res.readyState == 4 && res.status == 200) {
