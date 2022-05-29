@@ -26,7 +26,7 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
 <body>
     <header>
         <img src='<? echo'/'.$res["img"]?>' alt='user image'></img>
-        <div id="<? echo $id ?>">
+        <div class="main" id="<? echo $id ?>">
             <? 
                 if(!empty($res["FNP"])){echo "<p>".$res["FNP"]."</p>";}
                 if(!empty($res["PHONE"])){echo "<p>".$res["PHONE"]."</p>";}
@@ -37,12 +37,13 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
         </div>
     </header>
     <footer>
-        <button>редактировать</button>
+        <button class="edit">редактировать</button><br>
+        <button class="delete">Удалить</button>
         <p style='display:none'><? echo json_encode($res)?></p>
     </footer>
     <script src="/SCRIPTS_CLIENT/ajax.js"></script>
     <script>
-        $("footer button").click(function(){
+        $("footer button.edit").click(function(){
             var value =JSON.parse($('footer>p').text());
             $("header>div").empty();
             let PHolder=`<form class="redact" name='redact' enctype="multipart/form-data">
@@ -51,22 +52,41 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
             <input placeholder='`+value["COMP"]+`' name='input_edit[COMP]'>:Компания<br>
             <input placeholder='`+value["Email"]+`' name='input_edit[Email]'>:E-mail<br>
             <input type="date" placeholder='`+value["BirthDay"]+`' name='input_edit[BirthDay]'>:Дата рождения<br>
-            <input placeholder='`+value["img"]+`' type='file' accept='image/*' name='img'>:Изображение<br>
+            <input placeholder='`+value["img"]+`' type='file' accept='image/*' name='img[]'>:Изображение<br>
+            <input name="input_edit[id]" value="`+value["id"]+`" type="hidden">
             <button>Отправить</button>
             </form>`;
             $("header>div").append(PHolder);
-
+        })
+        $("footer button.delete").click(function(){
+            data=$(".main").attr("ID");
+            console.log(data);
+            $.ajax({
+                url:"/API/notebook/manipulator.php",
+                type: 'DELETE',
+                processData: false,
+                contentType: false,
+                dataType : 'json',
+                data:data,
+                success:function(){
+                    location.href="/index.html"
+                }
+            })
         })
         $("header>div").on("submit",".redact",function(){
             var data = new FormData($("form.redact")[0]);
-            console.log(data);
+            data.append("id",$("header>div").attr("id")+"");
+            console.log(data.getAll("id"));
             $.ajax({
                 url:"/API/notebook/manipulator.php",
                 type: 'POST',
                 processData: false,
                 contentType: false,
                 dataType : 'json',
-                data:data
+                data:data,
+                success:function(){
+                    location.href="/index.html"
+                }
             })
             return false;
         })

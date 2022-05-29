@@ -17,19 +17,16 @@ function HASHIT($pass,$hash)//а это wrapper для password_hash() и passwo
     else{
     return password_hash($pass,PASSWORD_DEFAULT);}  
 }
-function imageUPLOAD($data,$dest="API/notebook/PB_img",$id)
+function imageUPLOAD($data,$id)
 {
-    if($data["error"]!=0){
+    $dest="PB_img";
+    if(intval($data["error"][0])!=0){
         return $data["error"];
     }else{
         $tmp_name=$data["tmp_name"][0];
-        $name=$id.".".pathinfo($data["name"][0],PATHINFO_EXTENSION);
-        if(move_uploaded_file($tmp_name,"$dest/$name"))
-        {
-            return "$dest/$name";
-        }else{
-            return NULL;
-        }
+        $name=basename($data["name"][0]);
+        move_uploaded_file($tmp_name,"$dest/$name");
+        return "API/notebook/"."$dest/$name";
     }
 }
 ?>

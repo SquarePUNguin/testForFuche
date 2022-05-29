@@ -3,11 +3,14 @@ body
     display:grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+    overflow-y: hidden;
+    
 }
 body>header{
     display:grid;
-    grid-template-columns: 1fr 10fr;
+    grid-template-columns: 1fr 5fr;
     grid-template-rows: 1fr;
+    background-color: var(--color1);
 }
 body>header>img/*left*/
 {
@@ -24,7 +27,7 @@ body>header>div:nth-child(2)/*right*/
     border-right:10px double var(--ButtonBRcolor);
     border-bottom:5px double var(--ButtonBRcolor);
     border-top:5px double var(--ButtonBRcolor);
-    background-color: var(--color1);
+    background-color: transparent;
 }
 body>header>div:nth-child(2)>p
 {
@@ -36,15 +39,23 @@ footer
     border-left:5px double var(--ButtonBRcolor);
     border-right:5px double var(--ButtonBRcolor);
     background-color: var(--bgcolor);
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 5% 20% 75%;
+    
 }
 /*buttons*/
+footer>button{
+    width:30%;
+    height:20%;
+}
+footer button
+{
+    margin-left:40%;margin-right:auto;
+}
+footer>div{
+    height:10%;
+}
 button
 {
     --buttonDebth:10px;
-    grid-area: 2/2;
     border:5px double var(--ButtonBRcolor);
     color:var(--ButtonText);
     border-radius: 30%;
@@ -64,7 +75,7 @@ button:active
     border:5px double var(--ButtonBRcolor);
     margin-bottom:0px;
     margin-top:var(--buttonDebth);
-    box-shadow:none;
+    box-shadow:none!important;
 }
 button:disabled
 {
