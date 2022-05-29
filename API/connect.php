@@ -17,7 +17,7 @@ function HASHIT($pass,$hash)//а это wrapper для password_hash() и passwo
     else{
     return password_hash($pass,PASSWORD_DEFAULT);}  
 }
-function imageUPLOAD($data,$id)
+function imageUPLOAD($data)
 {
     $dest="PB_img";
     if(intval($data["error"][0])!=0){
@@ -25,8 +25,9 @@ function imageUPLOAD($data,$id)
     }else{
         $tmp_name=$data["tmp_name"][0];
         $name=basename($data["name"][0]);
-        move_uploaded_file($tmp_name,"$dest/$name");
+        if(move_uploaded_file($tmp_name,"$dest/$name")){
         return "API/notebook/"."$dest/$name";
+        }else{return NULL;}
     }
 }
 ?>

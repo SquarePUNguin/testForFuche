@@ -29,10 +29,12 @@ if(isset($_POST["input_all"])){
         $result[$i]=$result[$i]."</div></div>";
     }
     $endgame="";
-    foreach($result as $val)
-    {
-        $endgame=$endgame.$val;
-    }
+    if(!empty($result)){
+        foreach($result as $val)
+        {
+            $endgame=$endgame.$val;
+        }
+    }else{$endgame="<p style='font-size:xx-large;grid-area:1/2;margin-top:10%;'>книга контактов пока-что пуста :(<br>однако вы можете её наполнить нажав на кнопу 'создать'<p>";}
     echo $endgame;
 }
 if(isset($_POST["input_search"])){

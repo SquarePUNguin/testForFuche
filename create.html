@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="STYLES/all.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+        <form>
+            <input required placeholder="фио" name='input_create[FNP]'><br>
+            <input required placeholder="телефон" name='input_create[PHONE]'><br>
+            <input placeholder="Компания" name='input_create[COMP]'><br>
+            <input required placeholder="Email" name='input_create[Email]'><br>
+            <input placeholder="ДАта рождения" type="date" name='input_create[BirthDay]'><br>
+            <input  placeholder="фото" type="file" accept='image/*' name='img[]'><br>
+            <button>Создать новый контакт</button>
+        </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+    $("body").on("submit","form",function(){
+            var data = new FormData($("form")[0]);
+            $.ajax({
+                url:"/API/notebook/manipulator.php",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType : 'json',
+                data:data,
+                complete:function(){
+                    location.href="/";
+                }
+            })
+            return false;
+        })
+</script>
+<style>
+    body{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    form{
+        grid-area: 2/2;
+        text-align:CENTER ;
+    }
+</style>
+</html>

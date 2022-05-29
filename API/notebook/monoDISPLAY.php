@@ -68,15 +68,14 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
                 contentType: false,
                 dataType : 'json',
                 data:data,
-                success:function(){
-                    location.href="/index.html"
+                complete:function(){
+                    location.href="/"
                 }
             })
         })
         $("header>div").on("submit",".redact",function(){
             var data = new FormData($("form.redact")[0]);
             data.append("id",$("header>div").attr("id")+"");
-            console.log(data.getAll("id"));
             $.ajax({
                 url:"/API/notebook/manipulator.php",
                 type: 'POST',
@@ -84,8 +83,8 @@ $res=$dbh->prepare("SELECT FNP,COMP,PHONE,Email,BirthDay,img FROM book WHERE id=
                 contentType: false,
                 dataType : 'json',
                 data:data,
-                success:function(){
-                    location.href="/index.html"
+                complete:function(){
+                    location.href="/";
                 }
             })
             return false;

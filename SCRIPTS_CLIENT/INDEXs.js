@@ -1,9 +1,9 @@
 
 $("header>div div>button:nth-child(1)").click(function () {
-    //редактировать
+    //создать
+    location.href="create.html"
 })
 $("header>div div>button:nth-child(2)").click(function () {
-    //выводить
     $("header>div div>button:nth-child(2)").prop("disabled",true);
     $(".dropmenu>div button").prop("disabled",true);
     let pullit = new AJAXpigeon("all","all","API/notebook/collector.php");
